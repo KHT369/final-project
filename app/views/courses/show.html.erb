@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Course #<%= @the_course.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/courses">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_course/<%= @the_course.id %>">
+          Delete course
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Course name
+      </dt>
+      <dd>
+        <%= @the_course.course_name %>
+      </dd>
+
+      <dt>
+        Term offered
+      </dt>
+      <dd>
+        <%= @the_course.term_offered %>
+      </dd>
+
+      <dt>
+        Description
+      </dt>
+      <dd>
+        <%= @the_course.description %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_course.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_course.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit course
+    </h2>
+
+    <form action="/modify_course/<%= @the_course.id %>"  method="post" >
+      <div>
+        <label for="course_name_box">
+          Course name
+        </label>
+
+        <input type="text" id="course_name_box" name="query_course_name" value="<%= @the_course.course_name %>">
+      </div>
+
+      <div>
+        <label for="term_offered_box">
+          Term offered
+        </label>
+
+        <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_course.term_offered %>">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Description
+        </label>
+
+        <input type="text" id="description_box" name="query_description" value="<%= @the_course.description %>">
+      </div>
+
+      <button>
+        Update course
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

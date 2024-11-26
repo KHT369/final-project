@@ -1,0 +1,182 @@
+<div>
+  <div>
+    <h1>
+      List of all questions
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new question
+    </h2>
+
+    <form action="/insert_question" method="post">
+      <div>
+        <label for="topic_id_box">
+          Topic
+        </label>
+
+        <input type="text" id="topic_id_box" name="query_topic_id">
+      </div>
+
+      <div>
+        <label for="body_box">
+          Body
+        </label>
+
+        <input type="text" id="body_box" name="query_body">
+      </div>
+
+      <div>
+        <label for="role_box">
+          Role
+        </label>
+
+        <input type="text" id="role_box" name="query_role">
+      </div>
+
+      <div>
+        <label for="authenticity_box">
+          Authenticity
+        </label>
+
+        <input type="text" id="authenticity_box" name="query_authenticity">
+      </div>
+
+      <div>
+        <label for="answer_box">
+          Answer
+        </label>
+
+        <input type="text" id="answer_box" name="query_answer">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="interview_id_box">
+          Interview
+        </label>
+
+        <input type="text" id="interview_id_box" name="query_interview_id">
+      </div>
+
+      <button>
+        Create question
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Topic
+        </th>
+
+        <th>
+          Body
+        </th>
+
+        <th>
+          Role
+        </th>
+
+        <th>
+          Authenticity
+        </th>
+
+        <th>
+          Answer
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Interview
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_questions.each do |a_question| %>
+      <tr>
+        <td>
+          <%= a_question.id %>
+        </td>
+
+        <td>
+          <%= a_question.topic_id %>
+        </td>
+
+        <td>
+          <%= a_question.body %>
+        </td>
+
+        <td>
+          <%= a_question.role %>
+        </td>
+
+        <td>
+          <%= a_question.authenticity %>
+        </td>
+
+        <td>
+          <%= a_question.answer %>
+        </td>
+
+        <td>
+          <%= a_question.user_id %>
+        </td>
+
+        <td>
+          <%= a_question.interview_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_question.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_question.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/questions/<%= a_question.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

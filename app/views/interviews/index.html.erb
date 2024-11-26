@@ -1,0 +1,134 @@
+<div>
+  <div>
+    <h1>
+      List of all interviews
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new interview
+    </h2>
+
+    <form action="/insert_interview" method="post">
+      <div>
+        <label for="company_box">
+          Company
+        </label>
+
+        <input type="text" id="company_box" name="query_company">
+      </div>
+
+      <div>
+        <label for="interview_type_box">
+          Interview type
+        </label>
+
+        <input type="text" id="interview_type_box" name="query_interview_type">
+      </div>
+
+      <div>
+        <label for="term_offered_box">
+          Term offered
+        </label>
+
+        <input type="text" id="term_offered_box" name="query_term_offered">
+      </div>
+
+      <div>
+        <label for="division_box">
+          Division
+        </label>
+
+        <input type="text" id="division_box" name="query_division">
+      </div>
+
+      <button>
+        Create interview
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Company
+        </th>
+
+        <th>
+          Interview type
+        </th>
+
+        <th>
+          Term offered
+        </th>
+
+        <th>
+          Division
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_interviews.each do |an_interview| %>
+      <tr>
+        <td>
+          <%= an_interview.id %>
+        </td>
+
+        <td>
+          <%= an_interview.company %>
+        </td>
+
+        <td>
+          <%= an_interview.interview_type %>
+        </td>
+
+        <td>
+          <%= an_interview.term_offered %>
+        </td>
+
+        <td>
+          <%= an_interview.division %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(an_interview.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(an_interview.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/interviews/<%= an_interview.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

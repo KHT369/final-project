@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Interview #<%= @the_interview.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/interviews">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_interview/<%= @the_interview.id %>">
+          Delete interview
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Company
+      </dt>
+      <dd>
+        <%= @the_interview.company %>
+      </dd>
+
+      <dt>
+        Interview type
+      </dt>
+      <dd>
+        <%= @the_interview.interview_type %>
+      </dd>
+
+      <dt>
+        Term offered
+      </dt>
+      <dd>
+        <%= @the_interview.term_offered %>
+      </dd>
+
+      <dt>
+        Division
+      </dt>
+      <dd>
+        <%= @the_interview.division %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_interview.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_interview.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit interview
+    </h2>
+
+    <form action="/modify_interview/<%= @the_interview.id %>"  method="post" >
+      <div>
+        <label for="company_box">
+          Company
+        </label>
+
+        <input type="text" id="company_box" name="query_company" value="<%= @the_interview.company %>">
+      </div>
+
+      <div>
+        <label for="interview_type_box">
+          Interview type
+        </label>
+
+        <input type="text" id="interview_type_box" name="query_interview_type" value="<%= @the_interview.interview_type %>">
+      </div>
+
+      <div>
+        <label for="term_offered_box">
+          Term offered
+        </label>
+
+        <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_interview.term_offered %>">
+      </div>
+
+      <div>
+        <label for="division_box">
+          Division
+        </label>
+
+        <input type="text" id="division_box" name="query_division" value="<%= @the_interview.division %>">
+      </div>
+
+      <button>
+        Update interview
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

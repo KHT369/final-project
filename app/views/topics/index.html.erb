@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all topics
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new topic
+    </h2>
+
+    <form action="/insert_topic" method="post">
+      <div>
+        <label for="course_id_box">
+          Course
+        </label>
+
+        <input type="text" id="course_id_box" name="query_course_id">
+      </div>
+
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title">
+      </div>
+
+      <button>
+        Create topic
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Course
+        </th>
+
+        <th>
+          Title
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_topics.each do |a_topic| %>
+      <tr>
+        <td>
+          <%= a_topic.id %>
+        </td>
+
+        <td>
+          <%= a_topic.course_id %>
+        </td>
+
+        <td>
+          <%= a_topic.title %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_topic.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_topic.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/topics/<%= a_topic.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Enrollment #<%= @the_enrollment.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/enrollments">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_enrollment/<%= @the_enrollment.id %>">
+          Delete enrollment
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_enrollment.user_id %>
+      </dd>
+
+      <dt>
+        Course
+      </dt>
+      <dd>
+        <%= @the_enrollment.course_id %>
+      </dd>
+
+      <dt>
+        Interview
+      </dt>
+      <dd>
+        <%= @the_enrollment.interview_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_enrollment.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_enrollment.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit enrollment
+    </h2>
+
+    <form action="/modify_enrollment/<%= @the_enrollment.id %>"  method="post" >
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_enrollment.user_id %>">
+      </div>
+
+      <div>
+        <label for="course_id_box">
+          Course
+        </label>
+
+        <input type="text" id="course_id_box" name="query_course_id" value="<%= @the_enrollment.course_id %>">
+      </div>
+
+      <div>
+        <label for="interview_id_box">
+          Interview
+        </label>
+
+        <input type="text" id="interview_id_box" name="query_interview_id" value="<%= @the_enrollment.interview_id %>">
+      </div>
+
+      <button>
+        Update enrollment
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
