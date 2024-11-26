@@ -41,6 +41,7 @@ class TopicsController < ApplicationController
       user_question.topic_id = the_topic.id
       user_question.body = "Can you mock interview me about #{the_topic.title} and then provide feedback after?"
       user_question.authenticity = "generated"
+      # user_question.answer = "user" Need to use an if then statement here
       user_question.save
 
       # Call API to get first assistant message
@@ -73,6 +74,7 @@ class TopicsController < ApplicationController
       assistant_question.topic_id = the_topic.id
       assistant_question.body = assistant_content
       assistant_question.authenticity = "generated"
+      # assistant_question.answer = "system" Need to use if then statement
       assistant_question.save
 
 
