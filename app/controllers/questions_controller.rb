@@ -21,17 +21,43 @@ class QuestionsController < ApplicationController
     the_question = Question.new
     the_question.topic_id = params.fetch("query_topic_id")
     the_question.body = params.fetch("query_body")
-    the_question.role = params.fetch("query_role")
-    the_question.authenticity = params.fetch("query_authenticity")
-    the_question.answer = params.fetch("query_answer")
+    the_question.role = "user"
+    the_question.authenticity = "generated"
     the_question.user_id = params.fetch("query_user_id")
-    the_question.interview_id = params.fetch("query_interview_id")
 
     if the_question.valid?
       the_question.save
-      redirect_to("/questions", { :notice => "Question created successfully." })
+
+      question_list = []
+
+      the_question.topic.questions.order(:created_at).each do |the_question|
+        message_hash = {
+          "role" => the_question.role,
+          "content" => the_question.body,
+          "authenticity" => the_question.authenticity,
+        }
+
+        question_list.push(message_hash)
+      end
+
+      client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+
+      api_response = client.chat(
+        parameters: {
+          model: ENV.fetch("OPENAI_MODEL"),
+          messages: question_list
+        }
+      )
+
+      new_assistant_question = Question.new
+      new_assistant_question.role = "assistant"
+      new_assistant_question.topic_id = the_question.topic_id
+      new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
+      new_assistant_question.save
+
+      redirect_to("/topics/#{the_question.topic_id}", { :notice => "Question created successfully." })
     else
-      redirect_to("/questions", { :alert => the_question.errors.full_messages.to_sentence })
+      redirect_to("/topics/#{the_question.topic_id}", { :alert => the_question.errors.full_messages.to_sentence })
     end
   end
 
@@ -43,9 +69,6 @@ class QuestionsController < ApplicationController
     the_question.body = params.fetch("query_body")
     the_question.role = params.fetch("query_role")
     the_question.authenticity = params.fetch("query_authenticity")
-    the_question.answer = params.fetch("query_answer")
-    the_question.user_id = params.fetch("query_user_id")
-    the_question.interview_id = params.fetch("query_interview_id")
 
     if the_question.valid?
       the_question.save

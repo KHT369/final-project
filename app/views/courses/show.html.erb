@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Course #<%= @the_course.id %> details
+      <%= @the_course.course_name %> Topics
     </h1>
 
     <div>
@@ -99,3 +99,41 @@
 </div>
 
 <hr>
+
+<h2>Topics</h2>
+
+<div>
+  <div>
+    <h2>
+      Add a new topic
+    </h2>
+
+    <form action="/insert_topic" method="post">
+      <div>
+        <input type="hidden" id="course_id_box" name="query_course_id" value="<%= @the_course.id %>" readonly>
+      </div>
+
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title">
+      </div>
+
+      <button>
+        Create topic
+      </button>
+    </form>
+  </div>
+</div>
+
+<ul>
+  <% Topic.where({ :course_id => @the_course.id }).each do |topic| %>
+    <li>
+      <a href="/topics/<%= topic.id %>">
+        <%= topic.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>

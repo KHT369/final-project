@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Topic #<%= @the_topic.id %> details
+      Topic: <%= @the_topic.title %>
     </h1>
 
     <div>
@@ -18,41 +18,38 @@
       </div>
     </div>
 
-    <dl>
+<!--    <dl>
       <dt>
         Course
       </dt>
       <dd>
-        <%= @the_topic.course_id %>
-      </dd>
+        <%#= @the_topic.course_id %>-->
+<!--      </dd>
 
       <dt>
         Title
       </dt>
       <dd>
-        <%= @the_topic.title %>
-      </dd>
+        <%#= @the_topic.title %>-->
+<!--      </dd>
 
       <dt>
         Created at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_topic.created_at) %> ago
-      </dd>
+        <%#= time_ago_in_words(@the_topic.created_at) %> ago-->
+<!--      </dd>
 
       <dt>
         Updated at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_topic.updated_at) %> ago
-      </dd>
+        <%#= time_ago_in_words(@the_topic.updated_at) %> ago-->
+<!--      </dd>
     </dl>
   </div>
 </div>
-
-<hr>
-
-
+-->
 <div>
   <div>
     <h2>
@@ -62,10 +59,16 @@
     <form action="/modify_topic/<%= @the_topic.id %>"  method="post" >
       <div>
         <label for="course_id_box">
-          Course
+          <% Course.where({ :id => @the_topic.course_id }).each do |course| %>
+            <strong>
+                <%= course.course_name %>
+              </strong>
+            </li>
+          <% end %>
+
         </label>
 
-        <input type="text" id="course_id_box" name="query_course_id" value="<%= @the_topic.course_id %>">
+        <input type="hidden" id="course_id_box" name="query_course_id" value="<%= @the_topic.course_id %>">
       </div>
 
       <div>
@@ -83,4 +86,54 @@
   </div>
 </div>
 
+
 <hr>
+
+<h2>Questions</h2>
+
+<dl>
+  <% @the_topic.questions.order(:created_at).each do |the_question| %>
+    <dt><%= the_question.role %></dt>
+    <dd><%= the_question.body %></dd>
+  <% end %>
+</dl>
+
+<div>
+  <div>
+    <h2>
+      Generate Practice Question
+    </h2>
+
+    <form action="/insert_question" method="post">
+      <div>
+        <input type="text" id="topic_id_box" name="query_topic_id" value="<%= @the_topic.id %>" readonly>
+      </div>
+      <div>
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= current_user.id %>" readonly>
+      </div>
+
+      <div>
+        <label for="body_box">
+          
+        </label>
+
+        <textarea id="body_box" name="query_body" style="width: 300px; height: 200px; text-align: left; padding: 5px; resize: none;"></textarea>
+
+      </div>
+
+      <button>
+        Generate Question
+      </button>
+    </form>
+  </div>
+</div>
+<!--keeping to delete stuff right now
+--><ul>
+  <% Question.where({ :topic_id => @the_topic.id }).each do |question| %>
+    <li>
+      <a href="/questions/<%= question.id %>">
+        <%= question.body %>
+      </a>
+    </li>
+  <% end %>
+</ul>
