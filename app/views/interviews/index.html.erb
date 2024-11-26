@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all interviews
+      All Interviews
     </h1>
   </div>
 </div>
@@ -13,7 +13,7 @@
     <h2>
       Add a new interview
     </h2>
-
+<% if current_user != nil %>
     <form action="/insert_interview" method="post">
       <div>
         <label for="company_box">
@@ -51,10 +51,14 @@
         Create interview
       </button>
     </form>
+<% else %>
+  <p>You must be <a href="/users/sign_in">signed in</a> to add an interview.</p>
+<% end %>
   </div>
 </div>
 
 <hr>
+<% if current_user != nil %>
 <div>
   <div>
     <table border="1">
@@ -132,3 +136,6 @@
 </div>
 
 <hr>
+<% else %>
+ 
+<% end %>

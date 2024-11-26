@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # Routes for the Interview resource:
 
+  get("/", { :controller => "interviews", :action => "index" })
+
   # CREATE
   post("/insert_interview", { :controller => "interviews", :action => "create" })
           
