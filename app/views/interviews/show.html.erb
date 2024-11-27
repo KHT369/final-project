@@ -48,6 +48,13 @@
       </dd>
 
       <dt>
+        Role Title
+      </dt>
+      <dd>
+        <%= @the_interview.description %>
+      </dd>
+
+      <dt>
         Created at
       </dt>
       <dd>
@@ -106,6 +113,14 @@
         <input type="text" id="division_box" name="query_division" value="<%= @the_interview.division %>">
       </div>
 
+      <div>
+        <label for="description_box">
+          Role Title
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
       <button>
         Update interview
       </button>
@@ -120,7 +135,7 @@
 <h2>Questions</h2>
 
 <dl>
-  <% @the_topic.questions.order(:created_at).each do |the_question| %>
+  <% @the_interview.questions.order(:created_at).each do |the_question| %>
     <dt><%= the_question.role %></dt>
     <dd><%= the_question.body %></dd>
   <% end %>
@@ -134,7 +149,7 @@
 
     <form action="/insert_question" method="post"> <!--Need to change this to a different route with a different function-->
       <div>
-        <input type="hidden" id="topic_id_box" name="query_topic_id" value="<%= @the_topic.id %>" readonly>
+        <input type="hidden" id="interview_id_box" name="query_interview_id" value="<%= @the_interview.id %>" readonly>
       </div>
 
       <div>
@@ -154,7 +169,7 @@
 </div>
 <!--keeping to delete stuff right now
 --><ul>
-  <% Question.where({ :topic_id => @the_topic.id }).each do |question| %>
+  <% Question.where({ :interview_id => @the_interview.id }).each do |question| %>
     <li>
       <a href="/questions/<%= question.id %>">
         <%= question.body %>

@@ -23,9 +23,74 @@ class InterviewsController < ApplicationController
     the_interview.interview_type = params.fetch("query_interview_type")
     the_interview.term_offered = params.fetch("query_term_offered")
     the_interview.division = params.fetch("query_division")
+    the_interview.description = params.fetch("query_description")
+    
 
     if the_interview.valid?
       the_interview.save
+
+    # Create system message
+
+    system_question = Question.new
+    system_question.interview_id = the_interview.id
+    system_question.role = "system"
+    system_question.body = "You are a #{the_interview.division} #{the_interview.description} mock interviewer. Generate a interview on #{the_interview.interview_type} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_interview.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+    system_question.authenticity = "generated"
+    system_question.save
+
+    # Create first user message
+
+    user_question = Question.new
+    user_question.role = "user"
+    user_question.interview_id = the_interview.id
+    user_question.body = "Can you mock interview me about #{the_interview.title} and then provide feedback after?"
+    user_question.authenticity = "generated"
+    # user_question.answer = "user" Need to use an if then statement here
+    if user_question.body.include?("?")
+      user_question.answer = "yes"
+    else
+      user_question.answer = "no" # Or any other default value you prefer
+    end
+    user_question.save
+
+    # Call API to get first assistant message
+
+    client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+
+    question_list = [
+      {
+        "role" => "system",
+        "content" => "You are a #{the_topic.title} mock interviewer. Generate an interview on #{the_topic.title} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_topic.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+    
+      },
+      {
+        "role" => "user",
+        "content" => "Can you mock interview me about #{the_topic.title} and then provide feedback after?"
+      }
+    ]
+
+    api_response = client.chat(
+      parameters: {
+        model: ENV.fetch("OPENAI_MODEL"),
+        messages: question_list
+      }
+    )
+
+    assistant_content = api_response.fetch("choices").at(0).fetch("message").fetch("content")
+
+    assistant_question = Question.new
+    assistant_question.role = "assistant"
+    assistant_question.topic_id = the_topic.id
+    assistant_question.body = assistant_content
+    assistant_question.authenticity = "generated"
+    # assistant_question.answer = "system" Need to use if then statement
+    if assistant_question.body.include?("?")
+      assistant_question.answer = "yes"
+    else
+      assistant_question.answer = "no" # Or any other default value you prefer
+    end
+    assistant_question.save
+
       redirect_to("/interviews", { :notice => "Interview created successfully." })
     else
       redirect_to("/interviews", { :alert => the_interview.errors.full_messages.to_sentence })

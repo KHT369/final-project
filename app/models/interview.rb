@@ -4,6 +4,7 @@
 #
 #  id             :bigint           not null, primary key
 #  company        :string
+#  description    :string
 #  division       :string
 #  interview_type :string
 #  term_offered   :string

@@ -28,7 +28,10 @@
           Interview type
         </label>
 
-        <input type="text" id="interview_type_box" name="query_interview_type">
+        <select id="interview_type_box" name="query_interview_type">
+          <option value="Behavioral">Behavioral</option>
+          <option value="Case">Case</option>
+        </select>
       </div>
 
       <div>
@@ -45,6 +48,14 @@
         </label>
 
         <input type="text" id="division_box" name="query_division">
+      </div>
+
+      <div>
+        <label for="description_box">
+          Role Title
+        </label>
+
+        <input type="text" id="description_box" name="query_description">
       </div>
 
       <button>
@@ -84,6 +95,10 @@
         </th>
 
         <th>
+          Role Title
+        </th>
+
+        <th>
           Created at
         </th>
 
@@ -115,6 +130,10 @@
 
         <td>
           <%= an_interview.division %>
+        </td>
+
+        <td>
+          <%= an_interview.description %>
         </td>
 
         <td>
