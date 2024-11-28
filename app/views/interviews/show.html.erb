@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div>
-    <h1 class="text-center mb-4">Interview #<%= @the_interview.id %> Details</h1>
+    <h1 class="text-center mb-4"> <%= @the_interview.company %> <%= @the_interview.division %> Mock <%= @the_interview.interview_type %> Interview</h1>
 
     <div class="d-flex justify-content-between mb-4">
       <a href="/interviews" class="btn btn-secondary">Go back</a>
@@ -14,7 +14,7 @@
       <dt class="col-sm-3">Interview Type</dt>
       <dd class="col-sm-9"><%= @the_interview.interview_type %></dd>
 
-      <dt class="col-sm-3">Term Offered</dt>
+      <dt class="col-sm-3">Term Of Interview</dt>
       <dd class="col-sm-9"><%= @the_interview.term_offered %></dd>
 
       <dt class="col-sm-3">Division</dt>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="col-md-6">
-      <label for="term_offered_box" class="form-label">Term Offered</label>
+      <label for="term_offered_box" class="form-label">Term Of Interview</label>
       <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_interview.term_offered %>" class="form-control">
     </div>
 
