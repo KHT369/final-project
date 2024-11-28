@@ -1,10 +1,30 @@
 class InterviewsController < ApplicationController
   def index
+    # Start with all interviews
     matching_interviews = Interview.all
-
-    @list_of_interviews = matching_interviews.order({ :created_at => :desc })
-
-    render({ :template => "interviews/index" })
+  
+    # Apply filters
+    if params[:filter_company].present?
+      matching_interviews = matching_interviews.where(company: params[:filter_company])
+    end
+  
+    if params[:filter_type].present?
+      matching_interviews = matching_interviews.where(interview_type: params[:filter_type])
+    end
+  
+    if params[:filter_division].present?
+      matching_interviews = matching_interviews.where(division: params[:filter_division])
+    end
+  
+    # Order the filtered interviews
+    @list_of_interviews = matching_interviews.order(created_at: :desc)
+  
+    # Fetch distinct values for dropdowns
+    @companies = Interview.distinct.pluck(:company).compact
+    @types = Interview.distinct.pluck(:interview_type).compact
+    @divisions = Interview.distinct.pluck(:division).compact
+  
+    render(template: "interviews/index")
   end
 
   def show

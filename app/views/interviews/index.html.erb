@@ -9,6 +9,48 @@
 <hr>
 
 <div>
+  <h2>Filter Interviews</h2>
+  <form method="get" action="/interviews">
+    <div>
+      <label for="filter_company">Company</label>
+      <select id="filter_company" name="filter_company">
+        <option value="" <%= "selected" if params[:filter_company].blank? %>>All</option>
+        <% @companies.each do |company| %>
+          <option value="<%= company %>" <%= "selected" if params[:filter_company] == company %>><%= company %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div>
+      <label for="filter_type">Interview type</label>
+      <select id="filter_type" name="filter_type">
+        <option value="" <%= "selected" if params[:filter_type].blank? %>>All</option>
+        <% @types.each do |type| %>
+          <option value="<%= type %>" <%= "selected" if params[:filter_type] == type %>><%= type %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div>
+      <label for="filter_division">Division</label>
+      <select id="filter_division" name="filter_division">
+        <option value="" <%= "selected" if params[:filter_division].blank? %>>All</option>
+        <% @divisions.each do |division| %>
+          <option value="<%= division %>" <%= "selected" if params[:filter_division] == division %>><%= division %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit">Apply Filters</button>
+      <a href="/interviews" class="clear-filters-button">Clear Filters</a>
+    </div>
+  </form>
+</div>
+
+<hr>
+
+<div>
   <div>
     <h2>
       Add a new interview
