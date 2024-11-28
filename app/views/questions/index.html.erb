@@ -201,7 +201,7 @@
 
 <hr>
 -->
-
+<% if current_user != nil %>
 <div>
   <div>
     <h1>
@@ -400,3 +400,7 @@
 </div>
 
 <hr>
+
+<% else %>
+  <p>You must be <a href="/users/sign_in">signed in</a> to view questions.</p>
+<% end %>
