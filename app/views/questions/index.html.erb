@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all questions
+      Question Bank
     </h1>
   </div>
 </div>
@@ -88,6 +88,10 @@
         </th>
 
         <th>
+          Delete
+        </th>
+
+        <th>
           Topic
         </th>
 
@@ -132,6 +136,13 @@
         <td>
           <%= a_question.id %>
         </td>
+
+        <td>
+        <a href="/delete_question/<%= a_question.id %>">
+          Delete question
+        </a>
+        </td>
+
 
         <td>
           <%= a_question.topic_id %>
