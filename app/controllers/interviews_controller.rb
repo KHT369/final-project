@@ -91,9 +91,9 @@ class InterviewsController < ApplicationController
     end
     assistant_question.save
 
-      redirect_to("/interviews", { :notice => "Interview created successfully." })
+      redirect_to("/interviews/#{the_interview.id}", { :notice => "Interview created successfully." })
     else
-      redirect_to("/interviews", { :alert => the_interview.errors.full_messages.to_sentence })
+      redirect_to("/interviews/#{the_interview.id}", { :alert => the_interview.errors.full_messages.to_sentence })
     end
   end
 

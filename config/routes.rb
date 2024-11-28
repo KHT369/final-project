@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   # CREATE
   post("/insert_question", { :controller => "questions", :action => "create" })
+  
+  post("/insert_question_interview", { :controller => "questions", :action => "create_interview" })
           
   # READ
   get("/questions", { :controller => "questions", :action => "index" })

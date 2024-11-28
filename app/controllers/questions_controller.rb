@@ -66,6 +66,55 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def create_interview
+    the_question = Question.new
+    the_question.interview_id = params.fetch("query_interview_id")
+    the_question.body = params.fetch("query_body")
+    the_question.role = "user"
+    the_question.authenticity = "generated"
+    the_question.user_id = params.fetch("query_user_id")
+    if the_question.body.include?("?")
+      the_question.answer = "no"
+    else
+      the_question.answer = "yes" # Or any other default value you prefer
+    end
+
+    if the_question.valid?
+      the_question.save
+
+      question_list = []
+
+      the_question.interview.questions.order(:created_at).each do |the_question|
+        message_hash = {
+          "role" => the_question.role,
+          "content" => the_question.body,
+          "authenticity" => the_question.authenticity,
+        }
+
+        question_list.push(message_hash)
+      end
+
+      client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+
+      api_response = client.chat(
+        parameters: {
+          model: ENV.fetch("OPENAI_MODEL"),
+          messages: question_list
+        }
+      )
+
+      new_assistant_question = Question.new
+      new_assistant_question.role = "assistant"
+      new_assistant_question.interview_id = the_question.interview_id
+      new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
+      new_assistant_question.save
+
+      redirect_to("/interviews/#{the_question.interview_id}", { :notice => "Question created successfully." })
+    else
+      redirect_to("/interviews/#{the_question.interview_id}", { :alert => the_question.errors.full_messages.to_sentence })
+    end
+  end
+
   def update
     the_id = params.fetch("path_id")
     the_question = Question.where({ :id => the_id }).at(0)

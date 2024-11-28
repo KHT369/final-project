@@ -121,7 +121,7 @@
           Role Title
         </label>
 
-        <input type="text" id="description_box" name="query_description">
+        <input type="text" id="description_box" name="query_description" value="<%= @the_interview.description%>">
       </div>
 
       <button>
@@ -130,8 +130,6 @@
     </form>
   </div>
 </div>
-
-<hr>
 
 <hr>
 
@@ -150,9 +148,12 @@
       Generate Practice Question
     </h2>
 
-    <form action="/insert_question" method="post"> <!--Need to change this to a different route with a different function-->
+    <form action="/insert_question_interview" method="post"> <!--Need to change this to a different route with a different function-->
       <div>
-        <input type="hidden" id="interview_id_box" name="query_interview_id" value="<%= @the_interview.id %>" readonly>
+        <input type="text" id="interview_id_box" name="query_interview_id" value="<%= @the_interview.id %>" readonly>
+      </div>
+      <div>
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= current_user.id %>" readonly>
       </div>
 
       <div>
