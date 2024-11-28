@@ -55,13 +55,13 @@ class InterviewsController < ApplicationController
     system_question.interview_id = the_interview.id
     system_question.role = "system"
     system_question.user_id = current_user.id
+    system_question.body = "You are a #{the_interview.division} division mock interviewer from #{the_interview.company} interviewing the user for a #{the_interview.description} role. Generate a #{the_interview.interview_type} interview for the #{the_interview.description} role within #{the_interview.company}'s #{the_interview.division} division to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions one at a time. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question for #{the_interview.company}'s #{the_interview.description} role within the #{the_interview.division} division. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+    system_question.authenticity = "generated"
     if system_question.body.include?("?")
       system_question.answer = "no"
     else
       system_question.answer = "yes" # Or any other default value you prefer
     end
-    system_question.body = "You are a #{the_interview.division} division mock interviewer from #{the_interview.company} interviewing the user for a #{the_interview.description} role. Generate a #{the_interview.interview_type} interview for the #{the_interview.description} role within #{the_interview.company}'s #{the_interview.division} division to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions one at a time. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question for #{the_interview.company}'s #{the_interview.description} role within the #{the_interview.division} division. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
-    system_question.authenticity = "generated"
     system_question.save
 
     # Create first user message
