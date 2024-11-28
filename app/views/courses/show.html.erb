@@ -1,139 +1,87 @@
-<div>
+<div class="container mt-4">
   <div>
-    <h1>
+    <h1 class="text-center mb-4">
       <%= @the_course.course_name %> Topics
     </h1>
 
-    <div>
+    <div class="d-flex justify-content-between mb-3">
       <div>
-        <a href="/courses">
-          Go back
-        </a>
+        <a href="/courses" class="btn btn-secondary">Go back</a>
       </div>
-
       <div>
-        <a href="/delete_course/<%= @the_course.id %>">
-          Delete course
-        </a>
+        <a href="/delete_course/<%= @the_course.id %>" class="btn btn-danger">Delete course</a>
       </div>
     </div>
 
-    <dl>
-      <dt>
-        Course name
-      </dt>
-      <dd>
-        <%= @the_course.course_name %>
-      </dd>
+    <dl class="row">
+      <dt class="col-sm-3">Course name</dt>
+      <dd class="col-sm-9"><%= @the_course.course_name %></dd>
 
-      <dt>
-        Term offered
-      </dt>
-      <dd>
-        <%= @the_course.term_offered %>
-      </dd>
+      <dt class="col-sm-3">Term offered</dt>
+      <dd class="col-sm-9"><%= @the_course.term_offered %></dd>
 
-      <dt>
-        Professor
-      </dt>
-      <dd>
-        <%= @the_course.description %>
-      </dd>
+      <dt class="col-sm-3">Professor</dt>
+      <dd class="col-sm-9"><%= @the_course.description %></dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_course.created_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Created at</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_course.created_at) %> ago</dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_course.updated_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Updated at</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_course.updated_at) %> ago</dd>
     </dl>
   </div>
 </div>
 
 <hr>
 
-
-<div>
+<div class="container mb-4">
   <div>
-    <h2>
-      Edit course
-    </h2>
-
-    <form action="/modify_course/<%= @the_course.id %>"  method="post" >
-      <div>
-        <label for="course_name_box">
-          Course name
-        </label>
-
-        <input type="text" id="course_name_box" name="query_course_name" value="<%= @the_course.course_name %>">
+    <h2>Edit course</h2>
+    <form action="/modify_course/<%= @the_course.id %>" method="post">
+      <div class="mb-3">
+        <label for="course_name_box" class="form-label">Course name</label>
+        <input type="text" id="course_name_box" name="query_course_name" value="<%= @the_course.course_name %>" class="form-control">
       </div>
 
-      <div>
-        <label for="term_offered_box">
-          Term offered
-        </label>
-
-        <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_course.term_offered %>">
+      <div class="mb-3">
+        <label for="term_offered_box" class="form-label">Term offered</label>
+        <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_course.term_offered %>" class="form-control">
       </div>
 
-      <div>
-        <label for="description_box">
-          Professor
-        </label>
-
-        <input type="text" id="description_box" name="query_description" value="<%= @the_course.description %>">
+      <div class="mb-3">
+        <label for="description_box" class="form-label">Professor</label>
+        <input type="text" id="description_box" name="query_description" value="<%= @the_course.description %>" class="form-control">
       </div>
 
-      <button>
-        Update course
-      </button>
+      <button class="btn btn-primary">Update course</button>
     </form>
   </div>
 </div>
 
 <hr>
 
-<h2>Topics</h2>
+<div class="container mb-4">
+  <h2>Topics</h2>
 
-<div>
-  <div>
-    <h2>
-      Add a new topic
-    </h2>
-
+  <div class="mb-4">
+    <h3>Add a new topic</h3>
     <form action="/insert_topic" method="post">
-      <div>
-        <input type="hidden" id="course_id_box" name="query_course_id" value="<%= @the_course.id %>" readonly>
+      <input type="hidden" id="course_id_box" name="query_course_id" value="<%= @the_course.id %>" readonly class="form-control">
+
+      <div class="mb-3">
+        <label for="title_box" class="form-label">Title</label>
+        <input type="text" id="title_box" name="query_title" class="form-control">
       </div>
 
-      <div>
-        <label for="title_box">
-          Title
-        </label>
-
-        <input type="text" id="title_box" name="query_title">
-      </div>
-
-      <button>
-        Create topic
-      </button>
+      <button class="btn btn-success">Create topic</button>
     </form>
   </div>
-</div>
 
-<ul>
-  <% Topic.where({ :course_id => @the_course.id }).each do |topic| %>
-    <li>
-      <a href="/topics/<%= topic.id %>">
-        <%= topic.title %>
-      </a>
-    </li>
-  <% end %>
-</ul>
+  <ul class="list-group">
+    <% Topic.where({ :course_id => @the_course.id }).each do |topic| %>
+      <li class="list-group-item">
+        <a href="/topics/<%= topic.id %>"><%= topic.title %></a>
+      </li>
+    <% end %>
+  </ul>
+</div>

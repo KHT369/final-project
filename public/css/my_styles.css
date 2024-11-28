@@ -20,3 +20,76 @@
   font-weight: bold; /* Highlight active link */
   color: #000; /* Optional: Set active color */
 }
+
+/* General Card Styles */
+.card {
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.card-header {
+  font-weight: bold;
+}
+
+/* Filters Section */
+.card.border-primary {
+  border-color: #007bff; /* Primary blue border */
+}
+
+.card-header.bg-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card.border-secondary {
+  border-color: #6c757d; /* Secondary gray border */
+}
+
+.card.border-info {
+  border-color: #17a2b8; /* Info light blue border */
+}
+
+.card-header.bg-info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+/* Table Styles */
+.table {
+  margin-bottom: 1.5rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-bordered {
+  border: 1px solid #dee2e6;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-dark {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.table-dark th {
+  background-color: #454d55;
+}
+
+/* Button Styling */
+.btn {
+  margin-right: 0.5rem;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+}

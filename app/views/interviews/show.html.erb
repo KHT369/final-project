@@ -1,184 +1,110 @@
-<div>
+<div class="container mt-4">
   <div>
-    <h1>
-      Interview #<%= @the_interview.id %> details
-    </h1>
+    <h1 class="text-center mb-4">Interview #<%= @the_interview.id %> Details</h1>
 
-    <div>
-      <div>
-        <a href="/interviews">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_interview/<%= @the_interview.id %>">
-          Delete interview
-        </a>
-      </div>
+    <div class="d-flex justify-content-between mb-4">
+      <a href="/interviews" class="btn btn-secondary">Go back</a>
+      <a href="/delete_interview/<%= @the_interview.id %>" class="btn btn-danger">Delete interview</a>
     </div>
 
-    <dl>
-      <dt>
-        Company
-      </dt>
-      <dd>
-        <%= @the_interview.company %>
-      </dd>
+    <dl class="row">
+      <dt class="col-sm-3">Company</dt>
+      <dd class="col-sm-9"><%= @the_interview.company %></dd>
 
-      <dt>
-        Interview type
-      </dt>
-      <dd>
-        <%= @the_interview.interview_type %>
-      </dd>
+      <dt class="col-sm-3">Interview Type</dt>
+      <dd class="col-sm-9"><%= @the_interview.interview_type %></dd>
 
-      <dt>
-        Term offered
-      </dt>
-      <dd>
-        <%= @the_interview.term_offered %>
-      </dd>
+      <dt class="col-sm-3">Term Offered</dt>
+      <dd class="col-sm-9"><%= @the_interview.term_offered %></dd>
 
-      <dt>
-        Division
-      </dt>
-      <dd>
-        <%= @the_interview.division %>
-      </dd>
+      <dt class="col-sm-3">Division</dt>
+      <dd class="col-sm-9"><%= @the_interview.division %></dd>
 
-      <dt>
-        Role Title
-      </dt>
-      <dd>
-        <%= @the_interview.description %>
-      </dd>
+      <dt class="col-sm-3">Role Title</dt>
+      <dd class="col-sm-9"><%= @the_interview.description %></dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_interview.created_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Created At</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_interview.created_at) %> ago</dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_interview.updated_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Updated At</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_interview.updated_at) %> ago</dd>
     </dl>
   </div>
 </div>
 
 <hr>
 
+<div class="container mb-4">
+  <h2>Edit Interview</h2>
+  <form action="/modify_interview/<%= @the_interview.id %>" method="post" class="row g-3">
+    <div class="col-md-6">
+      <label for="company_box" class="form-label">Company</label>
+      <input type="text" id="company_box" name="query_company" value="<%= @the_interview.company %>" class="form-control">
+    </div>
 
-<div>
-  <div>
-    <h2>
-      Edit interview
-    </h2>
+    <div class="col-md-6">
+      <label for="interview_type_box" class="form-label">Interview Type</label>
+      <select id="interview_type_box" name="query_interview_type" class="form-select">
+        <option value="Behavioral" <%= "selected" if @the_interview.interview_type == "Behavioral" %>>Behavioral</option>
+        <option value="Case" <%= "selected" if @the_interview.interview_type == "Case" %>>Case</option>
+      </select>
+    </div>
 
-    <form action="/modify_interview/<%= @the_interview.id %>"  method="post" >
-      <div>
-        <label for="company_box">
-          Company
-        </label>
+    <div class="col-md-6">
+      <label for="term_offered_box" class="form-label">Term Offered</label>
+      <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_interview.term_offered %>" class="form-control">
+    </div>
 
-        <input type="text" id="company_box" name="query_company" value="<%= @the_interview.company %>">
-      </div>
+    <div class="col-md-6">
+      <label for="division_box" class="form-label">Division</label>
+      <input type="text" id="division_box" name="query_division" value="<%= @the_interview.division %>" class="form-control">
+    </div>
 
-      <div>
-        <label for="interview_type_box">
-          Interview type
-        </label>
+    <div class="col-md-12">
+      <label for="description_box" class="form-label">Role Title</label>
+      <input type="text" id="description_box" name="query_description" value="<%= @the_interview.description %>" class="form-control">
+    </div>
 
-        <select id="interview_type_box" name="query_interview_type">
-          <option value="Behavioral">Behavioral</option>
-          <option value="Case">Case</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="term_offered_box">
-          Term offered
-        </label>
-
-        <input type="text" id="term_offered_box" name="query_term_offered" value="<%= @the_interview.term_offered %>">
-      </div>
-
-      <div>
-        <label for="division_box">
-          Division
-        </label>
-
-        <input type="text" id="division_box" name="query_division" value="<%= @the_interview.division %>">
-      </div>
-
-      <div>
-        <label for="description_box">
-          Role Title
-        </label>
-
-        <input type="text" id="description_box" name="query_description" value="<%= @the_interview.description%>">
-      </div>
-
-      <button>
-        Update interview
-      </button>
-    </form>
-  </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary">Update Interview</button>
+    </div>
+  </form>
 </div>
 
 <hr>
 
-<h2>Questions</h2>
-
-<dl>
-  <% @the_interview.questions.order(:created_at).each do |the_question| %>
-    <dt><%= the_question.role %></dt>
-    <dd><%= the_question.body %></dd>
-  <% end %>
-</dl>
-
-<div>
-  <div>
-    <h2>
-      Generate Practice Question
-    </h2>
-
-    <form action="/insert_question_interview" method="post"> <!--Need to change this to a different route with a different function-->
-      <div>
-        <input type="text" id="interview_id_box" name="query_interview_id" value="<%= @the_interview.id %>" readonly>
+<div class="container mb-4">
+  <h2>Questions</h2>
+  <dl class="list-group">
+    <% @the_interview.questions.order(:created_at).each do |the_question| %>
+      <div class="list-group-item">
+        <strong><%= the_question.role %></strong>
+        <p class="mb-0"><%= the_question.body %></p>
       </div>
-      <div>
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= current_user.id %>" readonly>
-      </div>
-
-      <div>
-        <label for="body_box">
-          
-        </label>
-
-        <textarea id="body_box" name="query_body" style="width: 300px; height: 200px; text-align: left; padding: 5px; resize: none;"></textarea>
-
-      </div>
-
-      <button>
-        Generate Question
-      </button>
-    </form>
-  </div>
+    <% end %>
+  </dl>
 </div>
-<!--keeping to delete stuff right now
-<ul>-->
-  <%# Question.where({ :interview_id => @the_interview.id }).each do |question| %>
-<!--    <li>
-      <a href="/questions/<%#= question.id %>">
-        <%#= question.body %>-->
-<!--      </a>
-    </li>
-  <%# end %>-->
-<!--</ul>
--->
+
+<hr>
+
+<div class="container mb-4">
+  <h2>Generate Practice Question</h2>
+  <form action="/insert_question_interview" method="post" class="row g-3">
+    <div class="col-md-6">
+      <input type="hidden" id="interview_id_box" name="query_interview_id" value="<%= @the_interview.id %>" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+      <input type="hidden" id="user_id_box" name="query_user_id" value="<%= current_user.id %>" class="form-control">
+    </div>
+
+    <div class="col-md-12">
+      <label for="body_box" class="form-label">Question Body</label>
+      <textarea id="body_box" name="query_body" class="form-control" style="height: 200px; resize: none;"></textarea>
+    </div>
+
+    <div class="col-md-12">
+      <button class="btn btn-success">Generate Question</button>
+    </div>
+  </form>
+</div>

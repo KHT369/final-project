@@ -1,161 +1,85 @@
-<div>
+<div class="container mt-4">
   <div>
-    <h1>
-      Question #<%= @the_question.id %> details
-    </h1>
+    <h1 class="text-center mb-4">Question #<%= @the_question.id %> Details</h1>
 
-    <div>
-      <div>
-        <a href="/questions">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_question/<%= @the_question.id %>">
-          Delete question
-        </a>
-      </div>
+    <div class="d-flex justify-content-between mb-4">
+      <a href="/questions" class="btn btn-secondary">Go back</a>
+      <a href="/delete_question/<%= @the_question.id %>" class="btn btn-danger">Delete question</a>
     </div>
 
-    <dl>
-      <dt>
-        Topic
-      </dt>
-      <dd>
-        <%= @the_question.topic_id %>
-      </dd>
+    <dl class="row">
+      <dt class="col-sm-3">Topic</dt>
+      <dd class="col-sm-9"><%= @the_question.topic_id %></dd>
 
-      <dt>
-        Body
-      </dt>
-      <dd>
-        <%= @the_question.body %>
-      </dd>
+      <dt class="col-sm-3">Body</dt>
+      <dd class="col-sm-9"><%= @the_question.body %></dd>
 
-      <dt>
-        Role
-      </dt>
-      <dd>
-        <%= @the_question.role %>
-      </dd>
+      <dt class="col-sm-3">Role</dt>
+      <dd class="col-sm-9"><%= @the_question.role %></dd>
 
-      <dt>
-        Authenticity
-      </dt>
-      <dd>
-        <%= @the_question.authenticity %>
-      </dd>
+      <dt class="col-sm-3">Authenticity</dt>
+      <dd class="col-sm-9"><%= @the_question.authenticity %></dd>
 
-      <dt>
-        Answer
-      </dt>
-      <dd>
-        <%= @the_question.answer %>
-      </dd>
+      <dt class="col-sm-3">Answer</dt>
+      <dd class="col-sm-9"><%= @the_question.answer %></dd>
 
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_question.user_id %>
-      </dd>
+      <dt class="col-sm-3">User</dt>
+      <dd class="col-sm-9"><%= @the_question.user_id %></dd>
 
-      <dt>
-        Interview
-      </dt>
-      <dd>
-        <%= @the_question.interview_id %>
-      </dd>
+      <dt class="col-sm-3">Interview</dt>
+      <dd class="col-sm-9"><%= @the_question.interview_id %></dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_question.created_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Created at</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_question.created_at) %> ago</dd>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_question.updated_at) %> ago
-      </dd>
+      <dt class="col-sm-3">Updated at</dt>
+      <dd class="col-sm-9"><%= time_ago_in_words(@the_question.updated_at) %> ago</dd>
     </dl>
   </div>
 </div>
 
 <hr>
 
+<div class="container mb-4">
+  <h2>Edit Question</h2>
+  <form action="/modify_question/<%= @the_question.id %>" method="post">
+    <div class="mb-3">
+      <label for="topic_id_box" class="form-label">Topic</label>
+      <input type="text" id="topic_id_box" name="query_topic_id" value="<%= @the_question.topic_id %>" class="form-control">
+    </div>
 
-<div>
-  <div>
-    <h2>
-      Edit question
-    </h2>
+    <div class="mb-3">
+      <label for="body_box" class="form-label">Body</label>
+      <input type="text" id="body_box" name="query_body" value="<%= @the_question.body %>" class="form-control">
+    </div>
 
-    <form action="/modify_question/<%= @the_question.id %>"  method="post" >
-      <div>
-        <label for="topic_id_box">
-          Topic
-        </label>
+    <div class="mb-3">
+      <label for="role_box" class="form-label">Role</label>
+      <input type="text" id="role_box" name="query_role" value="<%= @the_question.role %>" class="form-control">
+    </div>
 
-        <input type="text" id="topic_id_box" name="query_topic_id" value="<%= @the_question.topic_id %>">
-      </div>
+    <div class="mb-3">
+      <label for="authenticity_box" class="form-label">Authenticity</label>
+      <input type="text" id="authenticity_box" name="query_authenticity" value="<%= @the_question.authenticity %>" class="form-control">
+    </div>
 
-      <div>
-        <label for="body_box">
-          Body
-        </label>
+    <div class="mb-3">
+      <label for="answer_box" class="form-label">Answer</label>
+      <input type="text" id="answer_box" name="query_answer" value="<%= @the_question.answer %>" class="form-control">
+    </div>
 
-        <input type="text" id="body_box" name="query_body" value="<%= @the_question.body %>">
-      </div>
+    <div class="mb-3">
+      <label for="user_id_box" class="form-label">User</label>
+      <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_question.user_id %>" class="form-control">
+    </div>
 
-      <div>
-        <label for="role_box">
-          Role
-        </label>
+    <div class="mb-3">
+      <label for="interview_id_box" class="form-label">Interview</label>
+      <input type="text" id="interview_id_box" name="query_interview_id" value="<%= @the_question.interview_id %>" class="form-control">
+    </div>
 
-        <input type="text" id="role_box" name="query_role" value="<%= @the_question.role %>">
-      </div>
-
-      <div>
-        <label for="authenticity_box">
-          Authenticity
-        </label>
-
-        <input type="text" id="authenticity_box" name="query_authenticity" value="<%= @the_question.authenticity %>">
-      </div>
-
-      <div>
-        <label for="answer_box">
-          Answer
-        </label>
-
-        <input type="text" id="answer_box" name="query_answer" value="<%= @the_question.answer %>">
-      </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_question.user_id %>">
-      </div>
-
-      <div>
-        <label for="interview_id_box">
-          Interview
-        </label>
-
-        <input type="text" id="interview_id_box" name="query_interview_id" value="<%= @the_question.interview_id %>">
-      </div>
-
-      <button>
-        Update question
-      </button>
-    </form>
-  </div>
+    <button class="btn btn-primary">Update Question</button>
+  </form>
 </div>
 
 <hr>
