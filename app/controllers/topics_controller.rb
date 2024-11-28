@@ -30,6 +30,7 @@ class TopicsController < ApplicationController
       system_question = Question.new
       system_question.topic_id = the_topic.id
       system_question.role = "system"
+      system_question.user_id = current_user.id
       system_question.body = "You are a #{the_topic.course.course_name} Professor. Create a practice exam on #{the_topic.title} to help the user prepare for a final exam. Ask whether the user wants you to automatically generate questions on #{the_topic.title} or if they would like to submit questions for you to base the practice exam on. If the user responds with a list of questions, generate questions based on the submitted list. If the user does not submit a list of questions, proceed to generate your own. Ask the questions one at a time. Do not give the answers until the very end and don't ask a question when you give the answers. After the user has answered all the questions give them a score out of 100 and walk them through each question one step at a time and correct their mistakes."
       
       system_question.authenticity = "generated"
@@ -40,6 +41,7 @@ class TopicsController < ApplicationController
       user_question = Question.new
       user_question.role = "user"
       user_question.topic_id = the_topic.id
+      user_question.user_id = current_user.id
       user_question.body = "Can you ask me if I want to submit my own questions for you to base the #{the_topic.title} exam off of or generate an exam without submitting a question list?"
       user_question.authenticity = "generated"
       # user_question.answer = "user" Need to use an if then statement here
@@ -80,6 +82,7 @@ class TopicsController < ApplicationController
       assistant_question.topic_id = the_topic.id
       assistant_question.body = assistant_content
       assistant_question.authenticity = "generated"
+      assistant_question.user_id = current_user.id
       # assistant_question.answer = "system" Need to use if then statement
       if assistant_question.body.include?("?")
         assistant_question.answer = "no"

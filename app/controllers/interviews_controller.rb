@@ -54,6 +54,7 @@ class InterviewsController < ApplicationController
     system_question = Question.new
     system_question.interview_id = the_interview.id
     system_question.role = "system"
+    system_question.user_id = current_user.id
     system_question.body = "You are a #{the_interview.division} #{the_interview.description} mock interviewer from #{the_interview.company}. Generate a #{the_interview.interview_type} interview on #{the_interview.division} #{the_interview.description} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question for #{the_interview.division} #{the_interview.description}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
     system_question.authenticity = "generated"
     system_question.save
@@ -65,6 +66,7 @@ class InterviewsController < ApplicationController
     user_question.interview_id = the_interview.id
     user_question.body = "Can you mock interview me about #{the_interview.company} #{the_interview.division} #{the_interview.description} and then provide feedback after?"
     user_question.authenticity = "generated"
+    user_question.user_id = current_user.id
     # user_question.answer = "user" Need to use an if then statement here
     if user_question.body.include?("?")
       user_question.answer = "no"
@@ -103,6 +105,7 @@ class InterviewsController < ApplicationController
     assistant_question.interview_id = the_interview.id
     assistant_question.body = assistant_content
     assistant_question.authenticity = "generated"
+    assistant_question.user_id = current_user.id
     # assistant_question.answer = "system" Need to use if then statement
     if assistant_question.body.include?("?")
       assistant_question.answer = "no"

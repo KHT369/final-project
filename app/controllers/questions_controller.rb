@@ -91,6 +91,8 @@ class QuestionsController < ApplicationController
       new_assistant_question.role = "assistant"
       new_assistant_question.topic_id = the_question.topic_id
       new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
+      new_assistant_question.authenticity = "generated"
+      new_assistant_question.user_id = current_user.id
       new_assistant_question.save
 
       redirect_to("/topics/#{the_question.topic_id}", { :notice => "Question created successfully." })
@@ -140,6 +142,8 @@ class QuestionsController < ApplicationController
       new_assistant_question.role = "assistant"
       new_assistant_question.interview_id = the_question.interview_id
       new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
+      new_assistant_question.authenticity = "generated"
+      new_assistant_question.user_id = current_user.id
       new_assistant_question.save
 
       redirect_to("/interviews/#{the_question.interview_id}", { :notice => "Question created successfully." })

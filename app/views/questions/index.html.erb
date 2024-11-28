@@ -344,7 +344,6 @@
     <table border="1">
       <tr>
         <th>ID</th>
-        <th>Delete</th>
         <th>Topic</th>
         <th>Interview</th>
         <th>Role</th>
@@ -359,13 +358,16 @@
 
       <% @list_of_questions.each do |a_question| %>
       <tr>
-        <td><%= a_question.id %></td>
-
-        <td>
+        <td><%= a_question.id %>
+      <% if current_user.id == a_question.user_id %>
+         
           <a href="/delete_question/<%= a_question.id %>">
             Delete question
           </a>
-        </td>
+        
+      <% else %>
+      <% end %>
+      </td>
 
         <% if a_question.topic %>
           <td><%= a_question.topic.title %></td>
@@ -403,5 +405,5 @@
 <hr>
 
 <% else %>
-  <p>You must be <a href="/users/sign_in">signed in</a> to view questions.</p>
+  <p>You must be <a href="/users/sign_in">signed in</a> to view the response bank.</p>
 <% end %>
