@@ -63,7 +63,7 @@ class InterviewsController < ApplicationController
     user_question = Question.new
     user_question.role = "user"
     user_question.interview_id = the_interview.id
-    user_question.body = "Can you mock interview me about #{the_interview.division} #{the_interview.description} and then provide feedback after?"
+    user_question.body = "Can you mock interview me about #{the_interview.company} #{the_interview.division} #{the_interview.description} and then provide feedback after?"
     user_question.authenticity = "generated"
     # user_question.answer = "user" Need to use an if then statement here
     if user_question.body.include?("?")
