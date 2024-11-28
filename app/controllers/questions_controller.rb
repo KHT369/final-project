@@ -1,10 +1,43 @@
 class QuestionsController < ApplicationController
   def index
+    # Fetch all questions
     matching_questions = Question.all
+  
+    # Apply filters
+    if params[:filter_topic].present?
+      matching_questions = matching_questions.where(topic_id: params[:filter_topic])
+    end
+  
+    if params[:filter_authenticity].present?
+      case params[:filter_authenticity]
+      when "original"
+        matching_questions = matching_questions.where(authenticity: nil) # Assuming 'original' means authenticity is nil
+      when "generated"
+        matching_questions = matching_questions.where(authenticity: "generated")
+      end
+    end
+  
+    if params[:filter_interview].present?
+      matching_questions = matching_questions.where(interview_id: params[:filter_interview])
+    end
 
-    @list_of_questions = matching_questions.order({ :created_at => :desc })
-
-    render({ :template => "questions/index" })
+    if params[:filter_answer].present?
+      case params[:filter_answer]
+      when "no"
+        matching_questions = matching_questions.where(answer: nil) # Assuming 'original' means authenticity is nil
+      when "yes"
+        matching_questions = matching_questions.where(answer: "yes")
+      end
+    end
+  
+    # Order the filtered questions
+    @list_of_questions = matching_questions.order({ created_at: :desc })
+  
+    # Fetch data for filters
+    @topics = Topic.all
+    @interviews = Interview.all
+  
+    render({ template: "questions/index" })
   end
 
   def show

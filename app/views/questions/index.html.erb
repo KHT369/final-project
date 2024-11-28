@@ -1,4 +1,4 @@
-<div>
+<!--<div>
   <div>
     <h1>
       Question Bank
@@ -131,53 +131,262 @@
         </th>
       </tr>
 
-      <% @list_of_questions.each do |a_question| %>
-      <tr>
+      <%# @list_of_questions.each do |a_question| %>-->
+<!--      <tr>
         <td>
-          <%= a_question.id %>
-        </td>
+          <%#= a_question.id %>-->
+<!--        </td>
 
         <td>
-        <a href="/delete_question/<%= a_question.id %>">
+        <a href="/delete_question/<%#= a_question.id %>">
           Delete question
         </a>
         </td>
 
 
-        <td>
-          <%= a_question.topic_id %>
-        </td>
+        
+        <%# if a_question.topic.title %>-->
+<!--          <td><%#= a_question.topic.title %></td>-->
+        <%# else %>
+<!--          <td>No topic assigned</td>-->
+        <%# end %>
+<!--        
 
         <td>
-          <%= a_question.body %>
-        </td>
+          <%#= a_question.body %>-->
+<!--        </td>
 
         <td>
-          <%= a_question.role %>
-        </td>
+          <%#= a_question.role %>-->
+<!--        </td>
 
         <td>
-          <%= a_question.authenticity %>
-        </td>
+          <%#= a_question.authenticity %>-->
+<!--        </td>
 
         <td>
-          <%= a_question.answer %>
-        </td>
+          <%#= a_question.answer %>-->
+<!--        </td>
 
         <td>
-          <%= a_question.user_id %>
-        </td>
+          <%#= a_question.user_id %>-->
+<!--        </td>
+
+        
+          <%# if a_question.interview %>-->
+<!--            <td><%#= a_question.interview.company %>-->
+            <%#= a_question.interview.interview_type %></td>
+          <%# else %>
+<!--            <td>N/A</td>-->
+          <%# end %>
+<!--      
 
         <td>
-          <%= a_question.interview_id %>
-        </td>
+          <%#= time_ago_in_words(a_question.created_at) %> ago-->
+<!--        </td>
+        <td>
+          <%#= time_ago_in_words(a_question.updated_at) %> ago-->
+<!--        </td>
 
         <td>
-          <%= time_ago_in_words(a_question.created_at) %> ago
+          <a href="/questions/<%#= a_question.id %>">
+            Show details
+          </a>
         </td>
+      </tr>
+      <%# end %>-->
+<!--    </table>
+  </div>
+</div>
+
+<hr>
+-->
+
+<div>
+  <div>
+    <h1>
+      Question Bank
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<!-- Filters Section -->
+<div>
+  <div>
+    <h2>Filters</h2>
+    <form action="/questions" method="get">
+      <div>
+        <label for="topic_filter">Topic</label>
+        <select id="topic_filter" name="filter_topic">
+          <option value="">All</option>
+          <% @topics.each do |topic| %>
+            <option value="<%= topic.id %>" <%= "selected" if params[:filter_topic].to_s == topic.id.to_s %>><%= topic.title %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div>
+        <label for="authenticity_filter">Authenticity</label>
+        <select id="authenticity_filter" name="filter_authenticity">
+          <option value="" <%= "selected" if params[:filter_authenticity].blank? %>>All</option>
+          <option value="original" <%= "selected" if params[:filter_authenticity] == "original" %>>Original</option>
+          <option value="generated" <%= "selected" if params[:filter_authenticity] == "generated" %>>AI Generated</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="interview_filter">Interview</label>
+        <select id="interview_filter" name="filter_interview">
+          <option value="">All</option>
+          <% @interviews.each do |interview| %>
+            <option value="<%= interview.id %>" <%= "selected" if params[:filter_interview].to_s == interview.id.to_s %>>
+              <%= interview.company %> (<%= interview.interview_type %>)
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <div>
+        <label for="answer_filter">Answer</label>
+        <select id="answer_filter" name="filter_answer">
+          <option value="" <%= "selected" if params[:filter_answer].blank? %>>All</option>
+          <option value="no" <%= "selected" if params[:filter_answer] == "no" %>>No</option>
+          <option value="yes" <%= "selected" if params[:filter_answer] == "yes" %>>Yes</option>
+        </select>
+      </div>
+
+      <button type="submit">Apply Filters</button>
+      <a href="/questions">Clear Filters</a>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<!-- Add New Question Section -->
+<!--<div>
+  <div>
+    <h2>
+      Add a new question
+    </h2>
+
+    <form action="/insert_question" method="post">
+      <div>
+        <label for="topic_id_box">
+          Topic
+        </label>
+
+        <input type="text" id="topic_id_box" name="query_topic_id">
+      </div>
+
+      <div>
+        <label for="body_box">
+          Body
+        </label>
+
+        <input type="text" id="body_box" name="query_body">
+      </div>
+
+      <div>
+        <label for="role_box">
+          Role
+        </label>
+
+        <input type="text" id="role_box" name="query_role">
+      </div>
+
+      <div>
+        <label for="authenticity_box">
+          Authenticity
+        </label>
+
+        <input type="text" id="authenticity_box" name="query_authenticity">
+      </div>
+
+      <div>
+        <label for="answer_box">
+          Answer
+        </label>
+
+        <input type="text" id="answer_box" name="query_answer">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="interview_id_box">
+          Interview
+        </label>
+
+        <input type="text" id="interview_id_box" name="query_interview_id">
+      </div>
+
+      <button>
+        Create question
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>-->
+
+<!-- Questions Table -->
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Delete</th>
+        <th>Topic</th>
+        <th>Body</th>
+        <th>Role</th>
+        <th>Authenticity</th>
+        <th>Answer</th>
+        <th>User</th>
+        <th>Interview</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th>Actions</th>
+      </tr>
+
+      <% @list_of_questions.each do |a_question| %>
+      <tr>
+        <td><%= a_question.id %></td>
+
         <td>
-          <%= time_ago_in_words(a_question.updated_at) %> ago
+          <a href="/delete_question/<%= a_question.id %>">
+            Delete question
+          </a>
         </td>
+
+        <% if a_question.topic %>
+          <td><%= a_question.topic.title %></td>
+        <% else %>
+          <td>No topic assigned</td>
+        <% end %>
+
+        <td><%= a_question.body %></td>
+        <td><%= a_question.role %></td>
+        <td><%= a_question.authenticity %></td>
+        <td><%= a_question.answer %></td>
+        <td><%= a_question.user_id %></td>
+
+        <% if a_question.interview %>
+          <td><%= a_question.interview.company %> (<%= a_question.interview.interview_type %>)</td>
+        <% else %>
+          <td>N/A</td>
+        <% end %>
+
+        <td><%= time_ago_in_words(a_question.created_at) %> ago</td>
+        <td><%= time_ago_in_words(a_question.updated_at) %> ago</td>
 
         <td>
           <a href="/questions/<%= a_question.id %>">
