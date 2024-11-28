@@ -30,7 +30,8 @@ class TopicsController < ApplicationController
       system_question = Question.new
       system_question.topic_id = the_topic.id
       system_question.role = "system"
-      system_question.body = "You are a #{the_topic.title} mock interviewer. Generate an interview on #{the_topic.title} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_topic.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+      system_question.body = "You are a #{the_topic.course.course_name} Professor. Create a practice exam on #{the_topic.title} to help the user prepare for a final exam. Ask whether the user wants you to automatically generate questions on #{the_topic.title} or if they would like to submit questions for you to base the practice exam on. If the user responds with a list of questions, generate questions based on the submitted list. If the user does not submit a list of questions, proceed to generate your own. After the user has answered all the questions give them a score out of 100 and walk them through each question one step at a time and correct their mistakes."
+      
       system_question.authenticity = "generated"
       system_question.save
 
@@ -39,7 +40,7 @@ class TopicsController < ApplicationController
       user_question = Question.new
       user_question.role = "user"
       user_question.topic_id = the_topic.id
-      user_question.body = "Can you mock interview me about #{the_topic.title} and then provide feedback after?"
+      user_question.body = "Can you ask me if I want to submit my own questions for you to base the #{the_topic.title} exam off of or generate an exam without submitting a question list?"
       user_question.authenticity = "generated"
       # user_question.answer = "user" Need to use an if then statement here
       if user_question.body.include?("?")
@@ -56,12 +57,12 @@ class TopicsController < ApplicationController
       question_list = [
         {
           "role" => "system",
-          "content" => "You are a #{the_topic.title} mock interviewer. Generate an interview on #{the_topic.title} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_topic.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+          "content" => "You are a #{the_topic.course.course_name} Professor. Create a practice exam on #{the_topic.title} to help the user prepare for a final exam. Ask whether the user wants you to automatically generate questions on #{the_topic.title} or if they would like to submit questions for you to base the practice exam on. If the user responds with a list of questions, generate questions based on the submitted list. If the user does not submit a list of questions, proceed to generate your own. After the user has answered all the questions give them a score out of 100 and walk them through each question one step at a time and correct their mistakes."
       
         },
         {
           "role" => "user",
-          "content" => "Can you mock interview me about #{the_topic.title} and then provide feedback after?"
+          "content" => "Can you ask me if I want to submit my own questions for you to base the #{the_topic.title} exam off of or generate an exam without submitting a question list?"
         }
       ]
 
@@ -115,6 +116,6 @@ class TopicsController < ApplicationController
 
     the_topic.destroy
 
-    redirect_to("/topics", { :notice => "Topic deleted successfully."} )
+    redirect_to("/courses/#{the_topic.course_id}", { :notice => "Topic deleted successfully."} )
   end
 end
