@@ -50,25 +50,25 @@
   </div>
 </div>
 -->
-<div>
+<!--<div>
   <div>
     <h2>
       Edit topic
     </h2>
 
-    <form action="/modify_topic/<%= @the_topic.id %>"  method="post" >
+    <form action="/modify_topic/<%#= @the_topic.id %>"  method="post" >
       <div>
         <label for="course_id_box">
-          <% Course.where({ :id => @the_topic.course_id }).each do |course| %>
-            <strong>
-                <%= course.course_name %>
-              </strong>
+          <%# Course.where({ :id => @the_topic.course_id }).each do |course| %>-->
+<!--            <strong>-->
+                <%#= course.course_name %>
+<!--              </strong>
             </li>
-          <% end %>
-
+          <%# end %>-->
+<!--
         </label>
 
-        <input type="hidden" id="course_id_box" name="query_course_id" value="<%= @the_topic.course_id %>">
+        <input type="hidden" id="course_id_box" name="query_course_id" value="<%#= @the_topic.course_id %>">
       </div>
 
       <div>
@@ -76,7 +76,7 @@
           Title
         </label>
 
-        <input type="text" id="title_box" name="query_title" value="<%= @the_topic.title %>">
+        <input type="text" id="title_box" name="query_title" value="<%#= @the_topic.title %>">
       </div>
 
       <button>
@@ -84,7 +84,7 @@
       </button>
     </form>
   </div>
-</div>
+</div>-->
 
 
 <hr>

@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
     the_question.topic_id = params.fetch("query_topic_id")
     the_question.body = params.fetch("query_body")
     the_question.role = "user"
-    the_question.authenticity = "generated"
+    the_question.authenticity = ""
     the_question.user_id = params.fetch("query_user_id")
     if the_question.body.include?("?")
       the_question.answer = "no"
@@ -104,7 +104,7 @@ class QuestionsController < ApplicationController
     the_question.interview_id = params.fetch("query_interview_id")
     the_question.body = params.fetch("query_body")
     the_question.role = "user"
-    the_question.authenticity = "generated"
+    the_question.authenticity = ""
     the_question.user_id = params.fetch("query_user_id")
     if the_question.body.include?("?")
       the_question.answer = "no"

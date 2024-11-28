@@ -17,8 +17,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  has_many  :enrollments, class_name: "Enrollment", foreign_key: "user_id", dependent: :destroy
-  has_many  :questions, class_name: "Question", foreign_key: "user_id", dependent: :destroy
+  has_many :enrollments, class_name: "Enrollment", foreign_key: "user_id", dependent: :destroy
+  has_many :questions, class_name: "Question", foreign_key: "user_id", dependent: :destroy
   has_many :courses, through: :enrollments, source: :course
   has_many :interviews, through: :enrollments, source: :interview
   # Include default devise modules. Others available are:
