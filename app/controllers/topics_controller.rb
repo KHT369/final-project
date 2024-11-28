@@ -31,6 +31,11 @@ class TopicsController < ApplicationController
       system_question.topic_id = the_topic.id
       system_question.role = "system"
       system_question.user_id = current_user.id
+      if system_question.body.include?("?")
+        system_question.answer = "no"
+      else
+        system_question.answer = "yes" # Or any other default value you prefer
+      end
       system_question.body = "You are a #{the_topic.course.course_name} Professor. Create a practice exam on #{the_topic.title} to help the user prepare for a final exam. Ask whether the user wants you to automatically generate questions on #{the_topic.title} or if they would like to submit questions for you to base the practice exam on. If the user responds with a list of questions, generate questions based on the submitted list. If the user does not submit a list of questions, proceed to generate your own. Ask the questions one at a time. Do not give the answers until the very end and don't ask a question when you give the answers. After the user has answered all the questions give them a score out of 100 and walk them through each question one step at a time and correct their mistakes."
       
       system_question.authenticity = "generated"

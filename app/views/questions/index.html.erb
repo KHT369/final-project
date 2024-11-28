@@ -28,7 +28,7 @@
         <label for="authenticity_filter" class="form-label">Authenticity</label>
         <select id="authenticity_filter" name="filter_authenticity" class="form-select">
           <option value="" <%= "selected" if params[:filter_authenticity].blank? %>>All</option>
-          <option value="original" <%= "selected" if params[:filter_authenticity] == "" %>>Original</option>
+          <option value="original" <%= "selected" if params[:filter_authenticity] == "original" %>>Original</option>
           <option value="generated" <%= "selected" if params[:filter_authenticity] == "generated" %>>AI Generated</option>
         </select>
       </div>

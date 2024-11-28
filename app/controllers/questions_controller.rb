@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     if params[:filter_authenticity].present?
       case params[:filter_authenticity]
       when "original"
-        matching_questions = matching_questions.where(authenticity: nil) # Assuming 'original' means authenticity is nil
+        matching_questions = matching_questions.where(authenticity: "") # Assuming 'original' means authenticity is nil
       when "generated"
         matching_questions = matching_questions.where(authenticity: "generated")
       end
@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
     if params[:filter_answer].present?
       case params[:filter_answer]
       when "no"
-        matching_questions = matching_questions.where(answer: nil) # Assuming 'original' means authenticity is nil
+        matching_questions = matching_questions.where(answer: "no") # Assuming 'original' means authenticity is nil
       when "yes"
         matching_questions = matching_questions.where(answer: "yes")
       end
