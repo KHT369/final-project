@@ -128,12 +128,12 @@
   </div>
 </div>
 <!--keeping to delete stuff right now
---><ul>
-  <% Question.where({ :topic_id => @the_topic.id }).each do |question| %>
-    <li>
-      <a href="/questions/<%= question.id %>">
-        <%= question.body %>
-      </a>
+<!----><ul>-->
+  <%# Question.where({ :topic_id => @the_topic.id }).each do |question| %>
+<!--    <li>
+      <a href="/questions/<%#= question.id %>">
+        <%#= question.body %>-->
+<!--      </a>
     </li>
-  <% end %>
-</ul>
+  <%# end %>-->
+<!--</ul>-->

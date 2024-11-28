@@ -1,11 +1,32 @@
 class CoursesController < ApplicationController
   def index
+    # Fetch all courses
     matching_courses = Course.all
-
-    @list_of_courses = matching_courses.order({ :created_at => :desc })
-
-    render({ :template => "courses/index" })
+  
+    # Apply filters
+    if params[:filter_course_name].present?
+      matching_courses = matching_courses.where(course_name: params[:filter_course_name])
+    end
+  
+    if params[:filter_term_offered].present?
+      matching_courses = matching_courses.where(term_offered: params[:filter_term_offered])
+    end
+  
+    if params[:filter_professor].present?
+      matching_courses = matching_courses.where(description: params[:filter_professor])
+    end
+  
+    # Order the filtered courses
+    @list_of_courses = matching_courses.order({ created_at: :desc })
+  
+    # Fetch unique data for dropdowns
+    @course_names = Course.distinct.pluck(:course_name).compact.reject(&:blank?)
+    @terms = Course.distinct.pluck(:term_offered).compact.reject(&:blank?)
+    @professors = Course.distinct.pluck(:description).compact.reject(&:blank?)
+  
+    render({ template: "courses/index" })
   end
+  
 
   def show
     the_id = params.fetch("path_id")

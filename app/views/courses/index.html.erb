@@ -10,6 +10,56 @@
 
 <div>
   <div>
+    <h2>Filters</h2>
+    <form action="/courses" method="get">
+      <!-- Course Name Filter -->
+      <div>
+        <label for="filter_course_name">Course Name</label>
+        <select id="filter_course_name" name="filter_course_name">
+          <option value="">All</option>
+          <% @course_names.each do |course_name| %>
+            <option value="<%= course_name %>" <%= "selected" if params[:filter_course_name] == course_name %>>
+              <%= course_name %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <!-- Term Offered Filter -->
+      <div>
+        <label for="filter_term_offered">Term Offered</label>
+        <select id="filter_term_offered" name="filter_term_offered">
+          <option value="">All</option>
+          <% @terms.each do |term| %>
+            <option value="<%= term %>" <%= "selected" if params[:filter_term_offered] == term %>>
+              <%= term %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <!-- Professor Filter -->
+      <div>
+        <label for="filter_professor">Professor</label>
+        <select id="filter_professor" name="filter_professor">
+          <option value="">All</option>
+          <% @professors.each do |professor| %>
+            <option value="<%= professor %>" <%= "selected" if params[:filter_professor] == professor %>>
+              <%= professor %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <button type="submit">Apply Filters</button>
+      <a href="/courses">Clear Filters</a>
+    </form>
+  </div>
+</div>
+
+
+<div>
+  <div>
     <h2>
       Add a new course
     </h2>
@@ -49,6 +99,8 @@
   </div>
 </div>
 
+
+
 <hr>
 <% if current_user != nil %>
 <div>
@@ -68,7 +120,7 @@
         </th>
 
         <th>
-          Description
+          Professor
         </th>
 
         <th>
