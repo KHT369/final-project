@@ -25,9 +25,9 @@ class QuestionsController < ApplicationController
     the_question.authenticity = "generated"
     the_question.user_id = params.fetch("query_user_id")
     if the_question.body.include?("?")
-      the_question.answer = "yes"
+      the_question.answer = "no"
     else
-      the_question.answer = "no" # Or any other default value you prefer
+      the_question.answer = "yes" # Or any other default value you prefer
     end
 
     if the_question.valid?

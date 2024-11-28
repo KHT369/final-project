@@ -43,9 +43,9 @@ class TopicsController < ApplicationController
       user_question.authenticity = "generated"
       # user_question.answer = "user" Need to use an if then statement here
       if user_question.body.include?("?")
-        user_question.answer = "yes"
+        user_question.answer = "no"
       else
-        user_question.answer = "no" # Or any other default value you prefer
+        user_question.answer = "yes" # Or any other default value you prefer
       end
       user_question.save
 
@@ -81,9 +81,9 @@ class TopicsController < ApplicationController
       assistant_question.authenticity = "generated"
       # assistant_question.answer = "system" Need to use if then statement
       if assistant_question.body.include?("?")
-        assistant_question.answer = "yes"
+        assistant_question.answer = "no"
       else
-        assistant_question.answer = "no" # Or any other default value you prefer
+        assistant_question.answer = "yes" # Or any other default value you prefer
       end
       assistant_question.save
 

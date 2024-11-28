@@ -34,7 +34,7 @@ class InterviewsController < ApplicationController
     system_question = Question.new
     system_question.interview_id = the_interview.id
     system_question.role = "system"
-    system_question.body = "You are a #{the_interview.division} #{the_interview.description} mock interviewer. Generate a interview on #{the_interview.interview_type} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_interview.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+    system_question.body = "You are a #{the_interview.division} #{the_interview.description} mock interviewer from #{the_interview.company}. Generate a #{the_interview.interview_type} interview on #{the_interview.division} #{the_interview.description} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question for #{the_interview.division} #{the_interview.description}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
     system_question.authenticity = "generated"
     system_question.save
 
@@ -43,13 +43,13 @@ class InterviewsController < ApplicationController
     user_question = Question.new
     user_question.role = "user"
     user_question.interview_id = the_interview.id
-    user_question.body = "Can you mock interview me about #{the_interview.title} and then provide feedback after?"
+    user_question.body = "Can you mock interview me about #{the_interview.division} #{the_interview.description} and then provide feedback after?"
     user_question.authenticity = "generated"
     # user_question.answer = "user" Need to use an if then statement here
     if user_question.body.include?("?")
-      user_question.answer = "yes"
+      user_question.answer = "no"
     else
-      user_question.answer = "no" # Or any other default value you prefer
+      user_question.answer = "yes" # Or any other default value you prefer
     end
     user_question.save
 
@@ -60,12 +60,12 @@ class InterviewsController < ApplicationController
     question_list = [
       {
         "role" => "system",
-        "content" => "You are a #{the_topic.title} mock interviewer. Generate an interview on #{the_topic.title} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question on #{the_topic.title}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
+        "content" => "You are a #{the_interview.division} #{the_interview.description} mock interviewer from #{the_interview.company}. Generate a #{the_interview.interview_type} interview on #{the_interview.division} #{the_interview.description} to simulate a real interview. Start by asking the user to tell you about themselves. Follow up after the user replies with behavioral questions. Ask 5 to 10 behavioral questions one at a time to the user. Then move on to a case question for #{the_interview.division} #{the_interview.description}. For the case, make the structure similar to a consulting or technology interview case. During the case, remember to give them information if they ask any clarifying questions. After both the behavioral portion and the casing portion of the interview is over, please assess the user's answers and give them feedback on where they could improve."
     
       },
       {
         "role" => "user",
-        "content" => "Can you mock interview me about #{the_topic.title} and then provide feedback after?"
+        "content" => "Can you mock interview me about #{the_interview.division} #{the_interview.description} and then provide feedback after?"
       }
     ]
 
@@ -80,14 +80,14 @@ class InterviewsController < ApplicationController
 
     assistant_question = Question.new
     assistant_question.role = "assistant"
-    assistant_question.topic_id = the_topic.id
+    assistant_question.interview_id = the_interview.id
     assistant_question.body = assistant_content
     assistant_question.authenticity = "generated"
     # assistant_question.answer = "system" Need to use if then statement
     if assistant_question.body.include?("?")
-      assistant_question.answer = "yes"
+      assistant_question.answer = "no"
     else
-      assistant_question.answer = "no" # Or any other default value you prefer
+      assistant_question.answer = "yes" # Or any other default value you prefer
     end
     assistant_question.save
 
