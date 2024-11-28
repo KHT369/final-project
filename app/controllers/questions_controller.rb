@@ -93,6 +93,11 @@ class QuestionsController < ApplicationController
       new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
       new_assistant_question.authenticity = "generated"
       new_assistant_question.user_id = current_user.id
+      if new_assistant_question.body.include?("?")
+        new_assistant_question.answer = "no"
+      else
+        new_assistant_question.answer = "yes" 
+      end
       new_assistant_question.save
 
       redirect_to("/topics/#{the_question.topic_id}", { :notice => "Question created successfully." })
@@ -144,6 +149,11 @@ class QuestionsController < ApplicationController
       new_assistant_question.body = api_response.fetch("choices").at(0).fetch("message").fetch("content")
       new_assistant_question.authenticity = "generated"
       new_assistant_question.user_id = current_user.id
+      if new_assistant_question.body.include?("?")
+        new_assistant_question.answer = "no"
+      else
+        new_assistant_question.answer = "yes" # Or any other default value you prefer
+      end
       new_assistant_question.save
 
       redirect_to("/interviews/#{the_question.interview_id}", { :notice => "Question created successfully." })
