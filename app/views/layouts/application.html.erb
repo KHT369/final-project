@@ -1,35 +1,98 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+
     <title>Rails Template</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
+    <meta charset="utf-8">
+
+    <!-- Make it responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Connect Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+
+    <!-- Connect Bootstrap JavaScript and its dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Connect Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/my_styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <nav>
-      <a href="/">Interviews</a>
-      <a href="/courses">Courses</a>
-      <a href="/questions">Response Bank</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <!-- Navbar Brand -->
+        <a class="navbar-brand <%= 'active' if current_page?(root_path) %>" href="/">Interviews</a>
 
-      <% if current_user != nil %>
+        <!-- Toggler for smaller screens -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <a href="/users/sign_out">Sign out</a>
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <!-- Courses Link -->
+            <li class="nav-item">
+              <a class="nav-link <%= 'active' if current_page?(courses_path) %>" href="/courses">Courses</a>
+            </li>
+            <!-- Response Bank Link -->
+            <li class="nav-item">
+              <a class="nav-link <%= 'active' if current_page?(questions_path) %>" href="/questions">Response Bank</a>
+            </li>
 
-        <a href="/users/edit">Edit Profile</a>
-      
-      <% else %>
-
-        <a href="/users/sign_in">Sign in</a>
-
-        <a href="/users/sign_up">Sign up</a>
-       
-      <% end %>
+            <!-- User-specific Links -->
+            <% if current_user %>
+              <!-- Sign out -->
+              <li class="nav-item">
+                <a class="nav-link <%= 'active' if current_page?(destroy_user_session_path) %>" href="/users/sign_out">Sign out</a>
+              </li>
+              <!-- Edit Profile -->
+              <li class="nav-item">
+                <a class="nav-link <%= 'active' if current_page?(edit_user_registration_path) %>" href="/users/edit">Edit Profile</a>
+              </li>
+            <% else %>
+              <!-- Sign in -->
+              <li class="nav-item">
+                <a class="nav-link <%= 'active' if current_page?(new_user_session_path) %>" href="/users/sign_in">Sign in</a>
+              </li>
+              <!-- Sign up -->
+              <li class="nav-item">
+                <a class="nav-link <%= 'active' if current_page?(new_user_registration_path) %>" href="/users/sign_up">Sign up</a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </nav>
+
+
+
+
+
 
     <hr>
 

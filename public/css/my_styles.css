@@ -1,0 +1,22 @@
+/* Adjust styling for navbar-brand */
+.navbar-brand {
+  font-size: 1rem; /* Match font size with other nav links */
+  font-weight: normal; /* Remove default bold styling */
+  color: inherit; /* Use the same color as other links */
+  text-decoration: none; /* Ensure no underline */
+}
+
+.navbar-brand.active {
+  font-weight: bold; /* Bold when active */
+  color: #000; /* Optional: Active color */
+}
+
+.nav-link {
+  font-size: 1rem; /* Ensure same font size as navbar-brand */
+  font-weight: normal; /* Normal font weight for links */
+}
+
+.nav-link.active {
+  font-weight: bold; /* Highlight active link */
+  color: #000; /* Optional: Set active color */
+}
